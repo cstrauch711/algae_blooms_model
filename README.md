@@ -22,17 +22,19 @@ Let $N(t)$ be the average nutrient density concentration in that same volume.
 
 Several factors are involved in this model, which we will consider constant in this model for simplicity, as well as the fact that we are investigating the growth and decay of the algal bloom over a short period of time.
 
-Our model: $ \quad \begin{cases} \dfrac{dP}{dt} = (\beta N - \gamma - \sigma)P \\
-\dfrac{dN}{dt} = \rho(\gamma - \beta N) P - \alpha N + Q \end{cases}$
+Our model: 
+$$ \begin{cases} \dfrac{dP}{dt} = (\beta N - \gamma - \sigma)P \\ 
+\dfrac{dN}{dt} = \rho(\gamma - \beta N) P - \alpha N + Q \end{cases}$$
 
-where $ \quad \begin{cases} 
+where 
+$$ \begin{cases} 
 \beta : \text{Nutrition uptake efficiency (dependent on environmental conditions like temperature and light)} \\
 \rho : \text{The ratio of nutrient uptake and loss} \\
 \gamma : \text{Biomass decay rate} \\
 \sigma : \text{Nutrient loss related to the loss of algal bloom biomass (e.g. sinking, predation)} \\
 \alpha : \text{Nutrient loss related to biogeochemical processes} \\
 Q     : \text{Nutrient supply from external sources (e.g. preceipitation, rivers, seabed, etc.)}
-\end{cases}$
+\end{cases}$$
 
 Let's first code-up our parameters and time-span (250 days) as this will remain consistent regardless of ODE solver method.
 
@@ -178,9 +180,10 @@ pn_plot(forward_euler(np.arange(t0, 2000+dt/2, dt), 0.06, 0.1))
 
 
 It appears here that there is a fixed stability point for the system.
-Luckily, Huppert et al. provided the equilibrium solutions for this system, which are: $\begin{cases}
+Luckily, Huppert et al. provided the equilibrium solutions for this system, which are: 
+$$\begin{cases}
 N_{eq} = \dfrac{\gamma + \sigma}{\beta} \\
-P_{eq} = \dfrac{Q - \alpha N}{\rho (\beta N - \gamma} \end{cases}$
+P_{eq} = \dfrac{Q - \alpha N}{\rho (\beta N - \gamma} \end{cases}$$
 
 Let's plot these functions over our phase plane.
 
