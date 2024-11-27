@@ -23,18 +23,19 @@ Let $N(t)$ be the average nutrient density concentration in that same volume.
 Several factors are involved in this model, which we will consider constant in this model for simplicity, as well as the fact that we are investigating the growth and decay of the algal bloom over a short period of time.
 
 Our model: 
-$$ \begin{cases} \dfrac{dP}{dt} = (\beta N - \gamma - \sigma)P \\ 
-\dfrac{dN}{dt} = \rho(\gamma - \beta N) P - \alpha N + Q \end{cases}$$
+```math
+\begin{cases} \dfrac{dP}{dt} = (\beta N - \gamma - \sigma)P \\ 
+\dfrac{dN}{dt} = \rho(\gamma - \beta N) P - \alpha N + Q \end{cases}
 
-where 
-$$ \begin{cases} 
+\text{ where  }  \begin{cases} 
 \beta : \text{Nutrition uptake efficiency (dependent on environmental conditions like temperature and light)} \\
 \rho : \text{The ratio of nutrient uptake and loss} \\
 \gamma : \text{Biomass decay rate} \\
 \sigma : \text{Nutrient loss related to the loss of algal bloom biomass (e.g. sinking, predation)} \\
 \alpha : \text{Nutrient loss related to biogeochemical processes} \\
 Q     : \text{Nutrient supply from external sources (e.g. preceipitation, rivers, seabed, etc.)}
-\end{cases}$$
+\end{cases}
+```
 
 Let's first code-up our parameters and time-span (250 days) as this will remain consistent regardless of ODE solver method.
 
@@ -88,8 +89,11 @@ def forward_euler(t, P0, N0, alpha=0, rho=10**-3, gamma=0, sigma=0.1, betaN0 = 0
     return(x)
 ```
 
-Let's take a look at how this method performs over time with initial conditions: $ \quad \begin{cases}P(0) = 1\\
-N(0) = 0.1\end{cases}$
+Let's take a look at how this method performs over time with initial conditions:
+```math
+\begin{cases}P(0) = 1\\
+N(0) = 0.1\end{cases}
+```
 
 *Note that all plotting functions can be found in the appendix of this project*
 
@@ -127,7 +131,7 @@ time_plot(forward_euler(t_long, P0=1, N0=0.1), t_long)
 
 Yep! The algae-blooms appear to occur periodically as the amount of nutritional matter and algae fluctuate up and down. The strength of the blooms appear to dissipate over time, which makes sense as the ecosystem self-adjusts itself back to equilibrium over time.
 
-Now, let's take a look at the system over our original 250-day timespan, but with various increasing initial conditions for the algae $P(t)$ while we fix out N(0) value at 0.1.
+Now, let's take a look at the system over our original 250-day timespan, but with various increasing initial conditions for the algae $P(t)$ while we fix out $N(0)$ value at 0.1.
 
 
 ```python
@@ -181,9 +185,11 @@ pn_plot(forward_euler(np.arange(t0, 2000+dt/2, dt), 0.06, 0.1))
 
 It appears here that there is a fixed stability point for the system.
 Luckily, Huppert et al. provided the equilibrium solutions for this system, which are: 
-$$\begin{cases}
+```math
+\begin{cases}
 N_{eq} = \dfrac{\gamma + \sigma}{\beta} \\
-P_{eq} = \dfrac{Q - \alpha N}{\rho (\beta N - \gamma} \end{cases}$$
+P_{eq} = \dfrac{Q - \alpha N}{\rho (\beta N - \gamma} \end{cases}
+```
 
 Let's plot these functions over our phase plane.
 
